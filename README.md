@@ -114,3 +114,7 @@ drug-prediction/
 ├── requirements.txt
 └── README.md
 ```
+## 👤 Author
+**Bahre Hailemariam**  
+_Data Analyst & BI Developer_  
+📧 your.email@example.com | [LinkedIn](https://www.linkedin.com/) | [GitHub](https://github.com/)

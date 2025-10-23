@@ -44,3 +44,44 @@ X = df.drop('Drug', axis=1)
 y = df['Drug']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 ```
+### 4️⃣ Model Training
+Train multiple models (Decision Tree, Random Forest, Logistic Regression) and evaluate.
+
+```python
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+```
+### 5️⃣ Deployment (Streamlit)
+
+```python
+import streamlit as st
+import numpy as np
+
+st.title("💊 Drug Prediction App")
+age = st.number_input("Age", 1, 100)
+sex = st.selectbox("Sex", ["Male", "Female"])
+bp = st.selectbox("Blood Pressure", ["Low", "Normal", "High"])
+chol = st.selectbox("Cholesterol", ["Normal", "High"])
+na_to_k = st.number_input("Sodium to Potassium Ratio", 0.0, 50.0)
+
+if st.button("Predict Drug"):
+    input_data = pd.DataFrame([[age, sex, bp, chol, na_to_k]],
+                              columns=['Age','Sex','BP','Cholesterol','Na_to_K'])
+    prediction = model.predict(input_data)
+    st.success(f"Recommended Drug: {prediction[0]}")
+```
+
+## 📊 Dashboard Insights (Power BI)
+- **Drug Distribution by Age and Gender**: Reveals demographic patterns.
+- **BP vs Cholesterol Impact**: Displays how blood pressure and cholesterol influence drug recommendations.
+- **Na/K Ratio Influence**: Identifies key features driving drug prediction.
+- **Model Performance Metrics**: Shows confusion matrix, accuracy, precision, and recall.
+
+## 🛠️ Tech Stack
+Python | Pandas | Scikit-learn | Matplotlib | Streamlit | Power BI | Airflow

@@ -76,6 +76,110 @@ if st.button("Predict Drug"):
     prediction = model.predict(input_data)
     st.success(f"Recommended Drug: {prediction[0]}")
 ```
+# Power BI Report Specification  
+### Project: Drug Prediction Based on the Health Parameters of a Patient  
+
+---
+
+## 🎯 Purpose  
+This Power BI dashboard helps visualize patient health data, identify key risk indicators, and monitor drug prediction outcomes from a machine learning model.  
+It provides both clinical insights (health parameter trends, drug prediction patterns) and operational metrics (prediction accuracy, patient distribution).
+
+---
+
+## 📦 Data Sources  
+| Source | Description | Format |
+|---------|--------------|--------|
+| `patient_data.csv` | Raw patient health data (Age, BP, Cholesterol, etc.) | CSV |
+| `model_predictions.csv` | Output from ML model with predicted drug type | CSV |
+| `hospital_info.sql` | Optional database of hospital & department details | SQL |
+
+---
+
+## 🧱 Data Model  
+**Fact Table:** `Fact_Predictions`  
+**Dimension Tables:**
+- `Dim_Patient`
+- `Dim_Drug`
+- `Dim_HealthMetrics`
+- `Dim_Time`
+
+### Relationships  
+- `Dim_Patient[PatientID]` → `Fact_Predictions[PatientID]`  
+- `Dim_Drug[DrugID]` → `Fact_Predictions[PredictedDrugID]`  
+- `Dim_Time[DateKey]` → `Fact_Predictions[PredictionDateKey]`
+
+---
+
+## ⚙️ Data Transformation Steps  
+1. Load all CSV/SQL data using Power Query.  
+2. Remove duplicates and handle missing values (replace or drop).  
+3. Normalize categorical values (e.g., Gender, BP level).  
+4. Convert dates to a proper `DateKey` format.  
+5. Merge datasets to create a unified `Fact_Predictions` table.  
+6. Add calculated columns (BMI, Risk Index, Prediction Accuracy).  
+7. Create measure tables for aggregations.
+
+---
+
+## 📊 Dashboard Pages and Visuals  
+
+### **1. Patient Overview**
+- **KPIs**: Total Patients, Avg Age, Gender Distribution, Avg BMI  
+- **Visuals**:  
+  - Pie Chart: Gender split  
+  - Histogram: Age distribution  
+  - Gauge: Average BMI  
+  - Card: High-risk patient count  
+
+### **2. Health Parameter Insights**
+- **KPIs**: Avg BP, Avg Cholesterol, Avg Na-to-K ratio  
+- **Visuals**:  
+  - Line Chart: Blood Pressure vs Age  
+  - Heatmap: Cholesterol vs Drug Type  
+  - Bar Chart: Na-to-K ratio per Drug  
+
+### **3. Drug Prediction Results**
+- **KPIs**: Prediction Accuracy %, Top Predicted Drugs  
+- **Visuals**:  
+  - Confusion Matrix (using Python visual)  
+  - Column Chart: Drug predictions by age group  
+  - Card visuals: Precision, Recall, F1-Score  
+
+### **4. Model Performance**
+- **Visuals**:  
+  - Line Chart: Accuracy trend over time  
+  - Scatter Plot: True vs Predicted probabilities  
+  - KPI Cards: Accuracy %, AUC, Recall, F1  
+
+### **5. Operational & Regional Insights (Optional)**
+- **Visuals**:  
+  - Map: Patient distribution by city  
+  - Table: Top performing clinics  
+  - Line Chart: Drug usage trend by month  
+
+---
+
+## 📏 Key DAX Measures  
+
+```DAX
+Total Patients = COUNTROWS('Dim_Patient')
+
+Avg BMI = AVERAGE('Dim_HealthMetrics'[BMI])
+
+Prediction Accuracy % = 
+DIVIDE(
+    SUM('Fact_Predictions'[CorrectPredictions]),
+    COUNTROWS('Fact_Predictions'),
+    0
+)
+
+High Risk Patients = 
+CALCULATE(
+    COUNTROWS('Dim_Patient'),
+    FILTER('Dim_HealthMetrics', 'Dim_HealthMetrics'[RiskIndex] > 0.8)
+)
+
 
 ## 📊 Dashboard Insights (Power BI)
 - **Drug Distribution by Age and Gender**: Reveals demographic patterns.

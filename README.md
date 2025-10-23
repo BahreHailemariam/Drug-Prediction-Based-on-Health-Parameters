@@ -25,3 +25,22 @@ df = pd.read_csv("drug200.csv")
 df.drop_duplicates(inplace=True)
 df.fillna(method='ffill', inplace=True)
 ```
+### 3️⃣ Data Preprocessing
+Encode categorical variables and scale numerical features.
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+
+le = LabelEncoder()
+df['Sex'] = le.fit_transform(df['Sex'])
+df['BP'] = le.fit_transform(df['BP'])
+df['Cholesterol'] = le.fit_transform(df['Cholesterol'])
+
+scaler = StandardScaler()
+df[['Age','Na_to_K']] = scaler.fit_transform(df[['Age','Na_to_K']])
+
+X = df.drop('Drug', axis=1)
+y = df['Drug']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```

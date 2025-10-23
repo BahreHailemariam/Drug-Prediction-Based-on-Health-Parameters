@@ -179,7 +179,7 @@ CALCULATE(
     COUNTROWS('Dim_Patient'),
     FILTER('Dim_HealthMetrics', 'Dim_HealthMetrics'[RiskIndex] > 0.8)
 )
-
+```
 
 ## 📊 Dashboard Insights (Power BI)
 - **Drug Distribution by Age and Gender**: Reveals demographic patterns.

@@ -85,3 +85,32 @@ if st.button("Predict Drug"):
 
 ## 🛠️ Tech Stack
 Python | Pandas | Scikit-learn | Matplotlib | Streamlit | Power BI | Airflow
+
+## 📂 Project Structure
+```
+drug-prediction/
+│
+├── data/
+│   ├── raw/
+│   ├── processed/
+│
+├── notebooks/
+│   ├── EDA.ipynb
+│   ├── Model_Training.ipynb
+│
+├── src/
+│   ├── load_data.py
+│   ├── preprocess.py
+│   ├── train_model.py
+│   ├── app.py
+│
+├── models/
+│   ├── drug_model.pkl
+│
+├── reports/
+│   ├── PowerBI_Dashboard.pbix
+│   ├── metrics_summary.csv
+│
+├── requirements.txt
+└── README.md
+```

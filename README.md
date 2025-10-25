@@ -221,4 +221,4 @@ drug-prediction/
 ## 👤 Author
 **Bahre Hailemariam**  
 _Data Analyst & BI Developer_  
-📧 [Email Adress](bahre.hail@gmail.com) | [Portfolio](https://bahre-hailemariam-data-analyst.crd.co/)| [LinkedIn]([https://www.linkedin.com/](https://www.linkedin.com/in/bahre-hailemariam/)) | [GitHub]([https://github.com/](https://github.com/BahreHailemariam))
+📧 [Email Adress](bahre.hail@gmail.com) | [Portfolio](https://bahre-hailemariam-data-analyst.crd.co/) | [LinkedIn](https://www.linkedin.com/in/bahre-hailemariam/) | [GitHub](https://github.com/BahreHailemariam)
